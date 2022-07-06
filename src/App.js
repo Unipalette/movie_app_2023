@@ -1,49 +1,40 @@
-import Button from "./Button";
-import styles from "./App.module.css";
 import { useEffect, useState } from "react";
 
-function Boom() {
-  useEffect(function () {
-    console.log("hi :)");
-    return function () {
-      console.log("bye :(");
-    };
-  }, []);
-  return <h1 style={{ fontSize: "120px" }}>BOOM!💥</h1>;
-}
-
 function App() {
-  const [counter, setCounter] = useState(0);
-  const [keyword, setKeyword] = useState("");
-  const [showing, setShowing] = useState(false);
-
-  const onClick = () => setCounter((current) => current + 1);
-  const onChange = (event) => setKeyword(event.target.value);
-  const onClick2 = () => setShowing((prev) => !prev);
-
-  useEffect(() => {
-    if (keyword !== "" && keyword.length > 5) {
-      console.log("Search For ", keyword);
+  const [toDo, setTodo] = useState("");
+  const [toDos, setTodos] = useState([]);
+  const onChange = (e) => setTodo(e.target.value);
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (toDo === "") {
+      return;
     }
-  }, [keyword]);
+    setTodo("");
+    setTodos((currentArray) => [...currentArray, toDo]);
+  };
+  useEffect(() => {
+    console.log(toDos);
+  }, [toDos]);
   return (
     <div>
-      <input
-        value={keyword}
-        onChange={onChange}
-        type="text"
-        placeholder="Search here 👀"
-      />
-      <h2>{counter}</h2>
-      <button onClick={onClick}>클릭</button>
-
-      {showing ? <Boom /> : null}
-      <button
-        style={{ display: "block", marginTop: "20px" }}
-        onClick={onClick2}
-      >
-        {showing ? "Hide" : "show"}
-      </button>
+      <h1>My To Dos : {toDos.length}</h1>
+      <div>
+        <form onSubmit={onSubmit}>
+          <input
+            onChange={onChange}
+            value={toDo}
+            type="text"
+            placeholder="Write your to do... 💩"
+          />
+          <button>Add To Do</button>
+        </form>
+        <hr />
+        <ul>
+          {toDos.map((item, index) => {
+            return <li key={index}>{item}</li>;
+          })}
+        </ul>
+      </div>
     </div>
   );
 }
