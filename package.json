@@ -1,5 +1,4 @@
 {
-  "homepage": "https://unipalette.github.io/movie_app_2022",
   "name": "movie_app_2022",
   "version": "0.1.0",
   "private": true,
@@ -39,5 +38,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "homepage": "https://unipalette.github.io/movie_app_2022"
 }
